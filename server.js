@@ -9,13 +9,12 @@ const userExamsRoute = require('./routes/UserExams')
 const examRoute = require('./routes/Exam')
 require('dotenv').config()
 
-app.use(cors())
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://localhost:3000');
-  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  next();
-});
+const corsOptions ={
+    origin: process.env.FRONT_LINK, 
+    credentials:true,            
+    optionSuccessStatus:200
+}
+app.use(cors(corsOptions))
 app.use(bodyParser.json())
 
 mongoose.connect(process.env.DATABASE_ACCESS).then(data => {
